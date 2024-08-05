@@ -13,7 +13,7 @@ graph_clustering <- function(W, k, nu, td) {
   # Step 2: Compute the parametrized random walk diffusion kernel K(td,ν)
   P_nu_t <- expm::expm(td * log(P_nu))  # P_nu^t
   D_nu_plus_xi_inv <- solve(diag(nu + xi))
-  K_td_nu <- P_nu_t %*% diag(nu) %*% D_nu_plus_xi_inv
+  K_td_nu <- P_nu_t %*% D_nu_plus_xi_inv
   
   # Step 3: Apply k-means clustering to the rows of K(td,ν)
   kmeans_result <- kmeans(K_td_nu, centers = k)
