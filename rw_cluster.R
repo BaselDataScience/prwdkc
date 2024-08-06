@@ -1,19 +1,13 @@
 graph_clustering <- function(W, k, nu, td) {
-  N <- nrow(W)
-  
   # Step 1: Compute the parametrized random walk operator P(ν)
   P <- W / rowSums(W)  # Transition matrix
   xi <- as.vector(t(nu) %*% P)  # ξ = νTP
   D_nu <- diag(nu)
-  D_xi <- diag(xi)
-  
-  I <- diag(N)
-  P_nu <- solve(I + D_xi / nu) %*% (P + solve(D_nu) %*% t(P) %*% D_nu)
+
+  P_nu <- solve(diag(nrow(W)) + diag(xi) / nu) %*% (P + solve(D_nu) %*% t(P) %*% D_nu)
   
   # Step 2: Compute the parametrized random walk diffusion kernel K(td,ν)
-  P_nu_t <- expm::expm(td * log(P_nu))  # P_nu^t
-  D_nu_plus_xi_inv <- solve(diag(nu + xi))
-  K_td_nu <- P_nu_t %*% D_nu_plus_xi_inv
+  K_td_nu <- expm::expm(td * log(P_nu)) %*% solve(diag(nu + xi))
   
   # Step 3: Apply k-means clustering to the rows of K(td,ν)
   kmeans_result <- kmeans(K_td_nu, centers = k)
