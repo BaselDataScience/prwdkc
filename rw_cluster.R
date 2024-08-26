@@ -2,9 +2,8 @@ graph_clustering <- function(W, k, nu, td) {
   # Step 1: Compute the parametrized random walk operator P(ν)
   P <- W / rowSums(W)  # Transition matrix
   xi <- as.vector(t(nu) %*% P)  # ξ = νTP
-  D_nu <- diag(nu)
 
-  P_nu <- solve(diag(nrow(W)) + diag(xi) / nu) %*% (P + solve(D_nu) %*% t(P) %*% D_nu)
+  P_nu <- solve(diag(nrow(W)) + diag(xi) / nu) %*% (P + diag(1/nu) %*% t(P) %*% diag(nu))
   
   # Step 2: Compute the parametrized random walk diffusion kernel K(td,ν)
   K_td_nu <- expm::expm(td * log(P_nu)) %*% solve(diag(nu + xi))
