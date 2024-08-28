@@ -1,6 +1,4 @@
-library(expm)
-
-prwdk_clustering <- function(W, k, nu, td) {
+prwdkc <- function(W, k, nu, td) {
   # Input checks
   if (!is.matrix(W) || !is.numeric(W) || any(W < 0)) {
     stop("W must be a numeric matrix with non-negative entries")

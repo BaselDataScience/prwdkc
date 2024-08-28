@@ -1,0 +1,25 @@
+Package: prwdkc
+Title: Parametrized Random Walk Diffusion Kernel Clustering
+Version: 0.0.0.9000
+Authors@R: 
+    person("Reinhold ", "Koch", , "rei@reinholdkoch.com", role = c("aut", "cre", "cph"))
+Description: Parametrized Random Walk Diffusion Kernel Clustering (P-RWDKC),
+    is suitable for handling both directed and undirected graphs.
+    The framework is based on diffusion geometry and 
+    the generalized spectral clustering framework. The 
+    algorithm automatically reveals the cluster structure at a given 
+    scale by considering the random walk dynamics associated with a 
+    parametrized kernel operator, and by estimating its critical diffusion 
+    time. For details see https://arxiv.org/pdf/2210.00310. 
+    The seeds test data from https://archive.ics.uci.edu/dataset/236/seeds
+    are used via CC-BY 4.0 license.
+License: GPL (>= 3)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
+Imports: 
+    expm,
+    Matrix
+Suggests: 
+    FNN,
+    readr
