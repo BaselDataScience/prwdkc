@@ -3,9 +3,6 @@
 library(FNN)
 library(igraph)
 library(Matrix)
-library(MatrixExtra)
-library(readr)
-
 seeds <- readr::read_table('data/seeds_dataset.txt',
                            col_names = c('area',
                                          'perimeter',
