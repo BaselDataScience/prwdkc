@@ -1,28 +1,19 @@
-# read seeds data
-
-library(FNN)
-library(Matrix)
-
-seeds <- readr::read_table('data/seeds_dataset.txt',
-                           col_names = c('area',
-                                         'perimeter',
-                                         'compactness',
-                                         'length',
-                                         'width',
-                                         'asymmetry',
-                                         'groove',
-                                         'variety'
-                                         )
-                           )
-
-# construct KNN adjacency matrix W
-N <- nrow(seeds)
-K <- floor(log(N))
-W <- Matrix::sparseMatrix(rep(1:N, K),
-                          FNN::get.knn(seeds[,-8], k=K)$nn.index,
-                          x=1)   # can be improved by using similarities instead of 1
-
-# Alternative A.3
-W05 <- (W + t(W))/2       # fix gamma to 0.5
-P05 <- diag(1/(W05 %*% rep(1,N))[,1]) %*% W05
-  
+#' Seeds data from the UCI data repository 
+#'
+#' A small test data for clustering ...
+#'
+#' @format ## `seeds`
+#' A data frame with 210 rows and 8 columns and measurements of 210 wheat kernels.
+#' \describe{
+#'   \item{area}{area of kernel}
+#'   \item{perimeter}{perimeter of kernel}
+#'   \item{compactness}{4*pi * area / (perimeter^2)}
+#'   \item{length}{length of kernel}
+#'   \item{width}{width of kernel}
+#'   \item{asymmetry}{asymmetry coefficient}
+#'   \item{groove}{length of kernel groove}
+#'   \item{variety}{variety of wheat}
+#'   ...
+#' }
+#' @source <https://archive.ics.uci.edu/dataset/236/seeds>
+"seeds"
