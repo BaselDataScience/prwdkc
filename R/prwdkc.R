@@ -5,7 +5,7 @@
 #' @param nu start distribution on the vertices
 #' @param ld 2^ld is stop time for determining clusters
 #'
-#' @return clustering as vector indicating per vertex the assigned cluster number 
+#' @return clustering, a vector indicating per vertex the assigned cluster number 
 #' @export
 #'
 #' @examples
@@ -19,8 +19,8 @@ prwdkc <- function(W, k, nu, ld) {
     stop("k must be a positive integer")
   }
   
-  if (!is.numeric(nu) || length(nu) != nrow(W) || any(nu <= 0) || round(sum(nu), 8) != 1) {
-    stop("nu must be a positive numeric vector with length equal to the number of rows in W and sum 1")
+  if (!is.numeric(nu) || length(nu) != nrow(W) || any(nu <= 0)) {
+    stop("nu must be a positive numeric vector with length equal to the number of rows in W")
   }
   
   if (!is.numeric(ld) || length(ld) != 1 || ld < 0 || ld != round(ld)) {
@@ -49,7 +49,7 @@ prwdkc <- function(W, k, nu, ld) {
   K_td_nu <- P_nu %*% diag(1/(nu + xi))
   
   # Step 3: Apply k-means clustering to the rows of K(ld,ν)
-  kmeans_result <- stats::kmeans(K_td_nu, centers = k)
+  kmeans_result <- stats::kmeans(K_td_nu, centers = k, iter.max = 100)
   
   # Step 4: Return the k-partition from the clustering
   return(kmeans_result$cluster)

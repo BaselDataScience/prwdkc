@@ -16,7 +16,7 @@ prwdkc(W, k, nu, ld)
 \item{ld}{2^ld is stop time for determining clusters}
 }
 \value{
-clustering as vector indicating per vertex the assigned cluster number
+clustering, a vector indicating per vertex the assigned cluster number
 }
 \description{
 prwdk clustering function

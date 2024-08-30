@@ -23,6 +23,6 @@ Imports:
     methods,
     stats
 Suggests: 
+    aricode,
     FNN,
-    MatrixExtra,
     readr
