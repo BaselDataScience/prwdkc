@@ -49,7 +49,7 @@ prwdkc <- function(W, k, nu, ld) {
   K_td_nu <- P_nu %*% diag(1/(nu + xi))
   
   # Step 3: Apply k-means clustering to the rows of K(ld,ν)
-  kmeans_result <- stats::kmeans(K_td_nu, centers = k, iter.max = 100)
+  kmeans_result <- stats::kmeans(K_td_nu, centers = k, iter.max = 25)
   
   # Step 4: Return the k-partition from the clustering
   return(kmeans_result$cluster)
