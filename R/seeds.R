@@ -1,9 +1,9 @@
-#' Seeds data from the UCI data repository 
+#' Seeds
 #'
-#' A small test data for clustering ...
+#' A small test dataframe data from the UCI data repository for clustering.
 #'
 #' @format ## `seeds`
-#' A data frame with 210 rows and 8 columns and measurements of 210 wheat kernels.
+#' A data frame about 210 wheat kernels and 8 measurements each.
 #' \describe{
 #'   \item{area}{area of kernel}
 #'   \item{perimeter}{perimeter of kernel}
