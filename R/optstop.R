@@ -20,26 +20,26 @@ optstop <- function(X, W, k, J) {
   if ((!is.matrix(W) && !methods::is(W, 'Matrix')) || (!is.numeric(W) && !(is.numeric(W@x))) || any(W < 0)) {
     stop("W must be a numeric matrix with non-negative entries")
   }
-  
+
   if (!is.numeric(k) || length(k) != 1 || k <= 0 || k != round(k)) {
     stop("k must be a positive integer")
   }
-  
+
   if (!is.numeric(J) || length(J) != 1 || J <= 0 || J != round(J)) {
     stop("J must be a positive integer")
   }
-  
-  P <- W / rowSums(W)  # Transition matrix
-  xi <- colSums(P)  # ξ = νTP
+
+  P <- W / Matrix::rowSums(W)  # Transition matrix
+  xi <- Matrix::colSums(P)  # ξ = νTP
 
   # store clustering results for squares of P_1
   V <- matrix(nrow = J+1, ncol = nrow(W))
-  P_1 <- diag(1/(xi+1)) %*% (P + t(P))
+  P_1 <- diag(1/(xi+1)) %*% (P + Matrix::t(P))
   for (j in 1:(J+1)) {
     V[j,] <- stats::kmeans(P_1, centers=k)$cluster
     P_1 <- P_1 %*% P_1
   }
-  
+
   ch <- apply(V, 1, function(Y) fpc::calinhara(x=X, clustering = Y))
   jmax <- which.max(ch)
   return(jmax-1)

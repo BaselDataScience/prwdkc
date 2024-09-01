@@ -3,11 +3,11 @@
 \docType{data}
 \name{seeds}
 \alias{seeds}
-\title{Seeds data from the UCI data repository}
+\title{Seeds}
 \format{
 \subsection{\code{seeds}}{
 
-A data frame with 210 rows and 8 columns and measurements of 210 wheat kernels.
+A data frame about 210 wheat kernels and 8 measurements each.
 \describe{
 \item{area}{area of kernel}
 \item{perimeter}{perimeter of kernel}
@@ -28,6 +28,6 @@ A data frame with 210 rows and 8 columns and measurements of 210 wheat kernels.
 seeds
 }
 \description{
-A small test data for clustering ...
+A small test dataframe data from the UCI data repository for clustering.
 }
 \keyword{datasets}
