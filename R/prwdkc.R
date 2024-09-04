@@ -11,7 +11,7 @@
 #' @examples
 prwdkc <- function(W, k, nu, ld) {
   N <- nrow(W)
-  if (lenght(nu)==1) nu <- rep(nu, N)
+  if (length(nu)==1) nu <- rep(nu, N)
 
   # Input checks
   if ((!is.matrix(W) && !methods::is(W, 'Matrix')) || (!is.numeric(W) && !(is.numeric(W@x))) || any(W < 0)) {
@@ -47,6 +47,7 @@ prwdkc <- function(W, k, nu, ld) {
   # Step 2: Compute the parametrized random walk diffusion kernel
   while (ld > 0) {
     P_nu <- P_nu %*% P_nu
+    ld <- ld-1
   }
   K_td_nu <- P_nu %*% diag(1/(nu + xi))
 

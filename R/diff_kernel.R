@@ -14,7 +14,7 @@
 #' @examples
 diff_kernel <- function(W, nu, ld) {
   N <- nrow(W)
-  if (lenght(nu)==1) nu <- rep(nu, N)
+  if (length(nu)==1) nu <- rep(nu, N)
 
   # Input checks
   if ((!is.matrix(W) && !methods::is(W, 'Matrix')) || (!is.numeric(W) && !(is.numeric(W@x))) || any(W < 0)) {
