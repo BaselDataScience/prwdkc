@@ -13,12 +13,15 @@
 #'
 #' @examples
 diff_kernel <- function(W, nu, ld) {
+  N <- nrow(W)
+  if (lenght(nu)==1) nu <- rep(nu, N)
+
   # Input checks
   if ((!is.matrix(W) && !methods::is(W, 'Matrix')) || (!is.numeric(W) && !(is.numeric(W@x))) || any(W < 0)) {
     stop("W must be a numeric matrix with non-negative entries")
   }
 
-  if (!is.numeric(nu) || !length(nu) %in% c(1,nrow(W)) || any(nu <= 0)) {
+  if (!is.numeric(nu) || length(nu) != N || any(nu <= 0)) {
     stop("nu must be a positive numeric vector with length 1 or length equal to the number of rows in W")
   }
 

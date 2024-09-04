@@ -10,6 +10,9 @@
 #'
 #' @examples
 prwdkc <- function(W, k, nu, ld) {
+  N <- nrow(W)
+  if (lenght(nu)==1) nu <- rep(nu, N)
+
   # Input checks
   if ((!is.matrix(W) && !methods::is(W, 'Matrix')) || (!is.numeric(W) && !(is.numeric(W@x))) || any(W < 0)) {
     stop("W must be a numeric matrix with non-negative entries")
@@ -19,7 +22,7 @@ prwdkc <- function(W, k, nu, ld) {
     stop("k must be a positive integer")
   }
 
-  if (!is.numeric(nu) || !length(nu) %in% c(1,nrow(W)) || any(nu <= 0)) {
+  if (!is.numeric(nu) || length(nu) != N || any(nu <= 0)) {
     stop("nu must be a positive numeric vector with length 1 or length equal to the number of rows in W")
   }
 
@@ -27,11 +30,11 @@ prwdkc <- function(W, k, nu, ld) {
     stop("ld must be a nonnegative integer")
   }
 
-  if (k > nrow(W)) {
+  if (k > N) {
     stop("k cannot be larger than the number of vertices in the graph")
   }
 
-  if (k > nrow(W) / 2) {
+  if (k > N / 2) {
     warning("k is more than half the number of vertices. This may lead to overfitting.")
   }
 
