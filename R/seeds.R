@@ -13,7 +13,6 @@
 #'   \item{asymmetry}{asymmetry coefficient}
 #'   \item{groove}{length of kernel groove}
 #'   \item{variety}{variety of wheat}
-#'   ...
 #' }
 #' @source <https://archive.ics.uci.edu/dataset/236/seeds>
 "seeds"

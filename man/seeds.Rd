@@ -17,7 +17,6 @@ A data frame about 210 wheat kernels and 8 measurements each.
 \item{asymmetry}{asymmetry coefficient}
 \item{groove}{length of kernel groove}
 \item{variety}{variety of wheat}
-...
 }
 }
 }
