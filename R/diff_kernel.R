@@ -9,7 +9,6 @@
 #' @param ld 2^ld is count of markov chain steps
 #'
 #' @return diffusion kernel as m(M)atrix
-#' @export
 #'
 #' @examples
 diff_kernel <- function(W, nu, ld) {

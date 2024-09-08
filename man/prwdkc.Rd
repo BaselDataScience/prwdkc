@@ -4,16 +4,24 @@
 \alias{prwdkc}
 \title{prwdk clustering function}
 \usage{
-prwdkc(W, k, nu, ld)
+prwdkc(
+  X,
+  k,
+  nu = 1,
+  ld = optstop(X, data2adj(X, K), k = k, J = 15),
+  K = floor(log(nrow(X)))
+)
 }
 \arguments{
-\item{W}{adjacency matrix (or Matrix)}
+\item{X}{matrix or dataframe to be clustered, one element per row}
 
 \item{k}{number of clusters to determine}
 
-\item{nu}{start distribution on the vertices}
+\item{nu}{start distribution on the vertices, defaulting to equidistribution}
 
-\item{ld}{2^ld is stop time for determining clusters}
+\item{ld}{2^ld is stop time for determining clusters, default computation by optstop()}
+
+\item{K}{to compute K-NN matrix, default floor(log(nrow(X)))}
 }
 \value{
 clustering, a vector indicating per vertex the assigned cluster number

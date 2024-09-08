@@ -4,7 +4,6 @@
 #' @param C matrix, each column is one clustering result
 #'
 #' @return optimal clustering vector according to the Calinski-Harabasz index
-#' @export
 #'
 #' @examples
 optcluster <- function(X, C) {

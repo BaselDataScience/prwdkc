@@ -1,21 +1,23 @@
 #' prwdk clustering function
 #'
-#' @param W adjacency matrix (or Matrix)
+#' @param X matrix or dataframe to be clustered, one element per row
 #' @param k number of clusters to determine
-#' @param nu start distribution on the vertices
-#' @param ld 2^ld is stop time for determining clusters
+#' @param nu start distribution on the vertices, defaulting to equidistribution
+#' @param ld 2^ld is stop time for determining clusters, default computation by optstop()
+#' @param K to compute K-NN matrix, default floor(log(nrow(X)))
 #'
 #' @return clustering, a vector indicating per vertex the assigned cluster number
 #' @export
 #'
 #' @examples
-prwdkc <- function(W, k, nu, ld) {
-  N <- nrow(W)
+prwdkc <- function(X, k, nu=1, ld=optstop(X, data2adj(X, K), k=k, J=15), K=floor(log(nrow(X)))) {
+  N <- nrow(X)
   if (length(nu)==1) nu <- rep(nu, N)
 
   # Input checks
-  if ((!is.matrix(W) && !methods::is(W, 'Matrix')) || (!is.numeric(W) && !(is.numeric(W@x))) || any(W < 0)) {
-    stop("W must be a numeric matrix with non-negative entries")
+  if ((!is.data.frame(X) && !is.matrix(X) && !methods::is(X, 'Matrix')) ||
+      (!is.numeric(X) && any(vapply(X, function(x) !is.numeric(x), logical(1))))) {
+    stop("X must be a numeric matrix or dataframe")
   }
 
   if (!is.numeric(k) || length(k) != 1 || k <= 0 || k != round(k)) {
@@ -30,6 +32,10 @@ prwdkc <- function(W, k, nu, ld) {
     stop("ld must be a nonnegative integer")
   }
 
+  if (!is.numeric(K) || length(K) != 1 || K <= 0 || K != round(K)) {
+    stop("K must be a positive integer")
+  }
+
   if (k > N) {
     stop("k cannot be larger than the number of vertices in the graph")
   }
@@ -39,21 +45,15 @@ prwdkc <- function(W, k, nu, ld) {
   }
 
   # Main function body
-  # Step 1: Compute the parametrized random walk operator P(ν)
-  P <- W / Matrix::rowSums(W)  # Transition matrix
-  xi <- as.vector(Matrix::crossprod(nu, P))
-  P_nu <- diag(1/(1 + xi/nu)) %*% (P + Matrix::tcrossprod(diag(1/nu), P) %*% diag(nu))
+  # Compute the adjacency matrix
+  W <- data2adj(X, K)
 
-  # Step 2: Compute the parametrized random walk diffusion kernel
-  while (ld > 0) {
-    P_nu <- P_nu %*% P_nu
-    ld <- ld-1
-  }
-  K_td_nu <- P_nu %*% diag(1/(nu + xi))
+  # Compute the parametrized random walk diffusion kernel
+  K_td_nu <- diff_kernel(W=W, nu=nu, ld=ld)
 
-  # Step 3: Apply k-means clustering to the rows of K(ld,ν)
-  kmeans_result <- stats::kmeans(K_td_nu, centers = k, iter.max = 25)
+  # Repeatedly apply k-means clustering to the rows of the kernel
+  kmeans_result <- rep_kmeans(K_td_nu, k=k)
 
-  # Step 4: Return the k-partition from the clustering
-  return(kmeans_result$cluster)
+  # Return the best partition from the clustering
+  return(optcluster(X, kmeans_result))
 }

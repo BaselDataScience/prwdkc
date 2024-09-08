@@ -6,7 +6,6 @@
 #' @param J maximum power of 2 to consider
 #'
 #' @return optimal power of 2 to observe good cluster separation
-#' @export
 #'
 #' @examples
 optstop <- function(X, W, k, J) {

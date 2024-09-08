@@ -1,6 +1,6 @@
 Package: prwdkc
 Title: Parametrized Random Walk Diffusion Kernel Clustering
-Version: 0.5.2
+Version: 0.6
 Authors@R: 
     person("Reinhold ", "Koch", , "rei@reinholdkoch.com", role = c("aut", "cre", "cph"))
 Description: Parametrized Random Walk Diffusion Kernel Clustering (P-RWDKC),

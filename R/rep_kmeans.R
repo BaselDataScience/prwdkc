@@ -8,7 +8,6 @@
 #'
 #' @return numeric matrix of n cluster classifications.
 #'   Each clustering is represented by one column of the matrix.
-#' @export
 #'
 #' @examples
 rep_kmeans <- function(Kd, k, n=100) {

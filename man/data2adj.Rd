@@ -4,10 +4,12 @@
 \alias{data2adj}
 \title{construct adjacency matrix from data}
 \usage{
-data2adj(dat)
+data2adj(dat, K = floor(log(nrow(dat))))
 }
 \arguments{
 \item{dat}{data to cluster, either a dataframe or matrix (rows form the observations)}
+
+\item{K}{count of nearest neighbors, defaults to floor(log(nrow(dat)))}
 }
 \value{
 sparse adjacency matrix
